@@ -56,5 +56,5 @@ print("Відсортований список:", merged_list)
 ## Додатково
 - [Домашнє завдання до теми “Алгоритми сортування”](https://www.edu.goit.global/uk/learn/24858703/19646173/19656826/homework)
 - [https://github.com/nickolas-z/goit-algo-hw-04](https://github.com/nickolas-z/goit-algo-hw-04)
-- [goit-algo-hw-04-main.zip]()
+- [goit-algo-hw-04-main.zip](https://s3.eu-north-1.amazonaws.com/lms.goit.files/edc7b953-a194-405c-8adb-842786660226%D0%94%D0%974_%D0%97%D1%83%D0%B1%D1%87%D0%B8%D0%BA%D0%9C%D0%B8%D0%BA%D0%BE%D0%BB%D0%B0%D0%9C%D0%B8%D0%BA%D0%BE%D0%BB%D0%B0%D0%B9%D0%BE%D0%B2%D0%B8%D1%87.zip)
 - [Basic-Algorithms-and-Data-Structures-Neoversity](https://github.com/nickolas-z/Basic-Algorithms-and-Data-Structures-Neoversity)
