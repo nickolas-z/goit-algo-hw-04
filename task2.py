@@ -1,78 +1,76 @@
-import matplotlib.pyplot as plt
-import math
 from colorama import Style, init, Fore
 from helpers import Application, print_execution_time
+
+
 
 class Task2(Application):
     """
     Application class
     """
+
     @print_execution_time
-    def koch_snowflake(self, order, scale=10):
-
-        def koch_curve(ax, x1, y1, x2, y2, level):
-            if level == 0:
-                ax.plot([x1, x2], [y1, y2], color="b")
+    def merge_two_lists(self, list_a, list_b)->list:
+        """
+        Злиття двох списків
+        Args:
+            list_a: Перший список
+            list_b: Другий список
+        Return:
+            merged: Результат злиття двох списків
+        """
+        merged = []
+        i, j = 0, 0
+        # Порівнюємо елементи двох списків і додаємо менший до результату
+        while i < len(list_a) and j < len(list_b):
+            if list_a[i] <= list_b[j]:
+                merged.append(list_a[i])
+                i += 1
             else:
-                dx = x2 - x1
-                dy = y2 - y1
-                x3 = x1 + dx / 3
-                y3 = y1 + dy / 3
+                merged.append(list_b[j])
+                j += 1
+        # Додаємо залишки списків
+        merged.extend(list_a[i:])
+        merged.extend(list_b[j:])
+        return merged
 
-                x5 = x1 + 2 * dx / 3
-                y5 = y1 + 2 * dy / 3
+    @print_execution_time
+    def merge_k_lists(self, lists)->list:
+        """
+        Злиття кількох списків
+        Args:
+            lists: Список списків
+        Return:
+            lists[0]: Результат злиття всіх списків
+        """
+        if not lists:
+            return []
+        while len(lists) > 1:
+            merged_lists = []
+            # Зливаємо списки попарно
+            for i in range(0, len(lists), 2):
+                list_a = lists[i]
+                if i + 1 < len(lists):
+                    list_b = lists[i + 1]
+                    merged_list = self.merge_two_lists(list_a, list_b)
+                else:
+                    merged_list = list_a
+                merged_lists.append(merged_list)
+            lists = merged_lists
+        return lists[0]
 
-                # Координати вершини трикутника
-                angle = math.atan2(dy, dx) - math.pi / 3
-                dist = math.hypot(dx, dy) / 3
-                x4 = x3 + dist * math.cos(angle)
-                y4 = y3 + dist * math.sin(angle)
-
-                # Рекурсивно малюємо 4 нові лінії
-                koch_curve(ax, x1, y1, x3, y3, level - 1)
-                koch_curve(ax, x3, y3, x4, y4, level - 1)
-                koch_curve(ax, x4, y4, x5, y5, level - 1)
-                koch_curve(ax, x5, y5, x2, y2, level - 1)
-
-        fig, ax = plt.subplots()
-
-        # Визначаємо три точки початкового трикутника
-        x0 = 0
-        y0 = 0
-
-        x1 = scale
-        y1 = 0
-
-        x2 = scale / 2
-        y2 = scale * math.sin(math.pi / 3)
-
-        # Малюємо три сторони трикутника
-        koch_curve(ax, x0, y0, x1, y1, order)
-        koch_curve(ax, x1, y1, x2, y2, order)
-        koch_curve(ax, x2, y2, x0, y0, order)
-
-        ax.set_aspect("equal")
-        ax.axis("off")
-        plt.show()
 
     @print_execution_time
     def run(self):
         init(autoreset=True)
-        print(
-            f"{Fore.RED}Рівень рекурсії 7 обчислюється 21 секунду, тому рівень обмежено до 7."
-        )
-        while True:
-            level = int(input("Введіть рівень рекурсії (від 0 до 7): "))
-            if -1 < level < 8:
-                break
-            else:
-                print(f"{Fore.RED}Рівень рекурсії має бути від 0 до 7. Спробуйте ще раз.")
-        self.koch_snowflake(level)
+        # Приклад використання
+        lists = [[1, 4, 5], [1, 3, 4], [2, 6]]
+        merged_list = self.merge_k_lists(lists)
+        print("Відсортований список:", merged_list)
 
 # Run the application
 if __name__ == "__main__":
     try:
-        Task2("Fractal").run()
+        Task2("Merge lists").run()
     except EOFError:
         print(f"\n{Fore.RED}Input ended unexpectedly. Exiting the application.")
     except KeyboardInterrupt:
